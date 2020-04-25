@@ -3,7 +3,7 @@ import '../index.css';
 
 const Scroll = ({ children }) => {
 	return (
-		<div id="scrollBar" style={{ overflowY: 'auto', border: '5px solid black', height: '800px' }}>
+		<div id="scrollBar" style={{ overflowY: 'scroll', border: '5px solid black', height: '800px' }}>
 			{children}
 		</div>
 	);
