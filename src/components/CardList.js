@@ -8,7 +8,7 @@ const CardList = ({ robots }) => {
 		});
 	};
 
-	return <React.Fragment>{renderCards()}</React.Fragment>;
+	return <div>{renderCards()}</div>;
 };
 
 export default CardList;
