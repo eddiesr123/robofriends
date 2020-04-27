@@ -4,5 +4,5 @@ import robotsReducer from './robotsReducer';
 
 export default combineReducers({
 	search: searchReducer,
-	robotHash: robotsReducer
+	requestRobots: robotsReducer
 });

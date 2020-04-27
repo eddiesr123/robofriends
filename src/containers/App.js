@@ -12,20 +12,16 @@ class App extends React.Component {
 		this.props.fetchRobots();
 	}
 
-	onSearchChange = (event) => {
-		this.props.setSearchField(event.target.value);
-	};
-
 	render() {
-		const { robots, searchField } = this.props;
+		const { robots, searchField, isPending, onSearchChange } = this.props;
 		const filteredRobots = robots.filter((robot) => robot.name.toLowerCase().includes(searchField.toLowerCase()));
 
-		return !robots.length ? (
+		return isPending ? (
 			<h1>Loading...</h1>
 		) : (
 			<div className="tc">
 				<h1 className="f1">RoboFriends</h1>
-				<SearchBox searchChange={this.onSearchChange} searchField={searchField} />
+				<SearchBox onSearchChange={onSearchChange} searchField={searchField} />
 				<Scroll>
 					<ErrorBoundary>
 						<CardList robots={filteredRobots} />
@@ -36,11 +32,15 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		searchField: state.search.searchField,
-		robots: state.robotHash.robots
-	};
-};
+const mapStateToProps = (state) => ({
+	searchField: state.search.searchField,
+	robots: state.requestRobots.robots,
+	isPending: state.requestRobots.isPending
+});
 
-export default connect(mapStateToProps, { setSearchField, fetchRobots })(App);
+const mapDispatchToProps = (dispatch) => ({
+	onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+	fetchRobots: () => dispatch(fetchRobots())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
